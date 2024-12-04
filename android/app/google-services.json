@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "717024307018",
+    "project_id": "fluttergp-a0cd8",
+    "storage_bucket": "fluttergp-a0cd8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717024307018:android:a6514dd8b12843bb4c43b3",
+        "android_client_info": {
+          "package_name": "com.example.graduation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717024307018-59ti6utnqhtjr80mjalrbbb4ldjdnmsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmKmO6WHxmfOhG2mTh1yXDyFUfk7i6tzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717024307018-59ti6utnqhtjr80mjalrbbb4ldjdnmsj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "717024307018-2inr1pup3vej9bc22t4v6dhjuq3h89bp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
