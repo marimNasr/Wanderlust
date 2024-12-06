@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../Constants/constant_color.dart';
+import '../../../../Constants/constant_size.dart';
 import '../../../Home/presentation/views/home.dart';
 import '../cubit/auth_cubit.dart';
 
@@ -12,13 +12,14 @@ class AnotherOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    screenSize.init_screenSize(context);
     return Column(
         children: [
           Text("~OR~"
             , style: TextStyle(
-                color: mainColor,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 20
+                fontSize: screenSize.width/19
             ),),
           SizedBox(height: size),
           BlocConsumer<AuthCubit, AuthState>(
@@ -31,9 +32,9 @@ class AnotherOptions extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, homePage.routeName);
               }else if (state is GoogleSignInError){
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text(state.error)
-                  )
+                    SnackBar(
+                        content: Text(state.error)
+                    )
                 );
               }
             },
@@ -46,9 +47,9 @@ class AnotherOptions extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: orange, // Button background color
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded corners
+                    borderRadius: BorderRadius.circular(screenSize.width/15), // Rounded corners
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20), // Adjust padding
+                  padding: EdgeInsets.symmetric(vertical: screenSize.height/100, horizontal: screenSize.width/30), // Adjust padding
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -56,14 +57,14 @@ class AnotherOptions extends StatelessWidget {
                     Icon(
                       Icons.g_mobiledata,
                       color: buttonsLabel, // Google icon color
-                      size: 30, // Adjust icon size
+                      size: screenSize.width/12, // Adjust icon size
                     ),
-                    const SizedBox(width: 8), // Space between icon and text
+                    SizedBox(width: screenSize.width/55 ), // Space between icon and text
                     Text(
                       "Sign in with Google",
                       style: TextStyle(
                         color: buttonsLabel, // Text color
-                        fontSize: 16, // Text size
+                        fontSize: screenSize.width/24, // Text size
                       ),
                     ),
                   ],

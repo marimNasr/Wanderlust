@@ -34,8 +34,6 @@ class _SignInState extends State<SignIn> {
           _controller.play();
           _controller.setLooping(true);
         }
-      }).catchError((error) {
-        print("Video initialization error: $error");
       });
   }
 
@@ -53,17 +51,17 @@ class _SignInState extends State<SignIn> {
         backgroundColor: videoColor,
         body: Stack(
           children: [
-      
+
             Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child:AspectRatio(
-                aspectRatio: (screenSize.width) / (screenSize.height/3.5),
-                child: VideoPlayer(_controller),
-              )
+                top: 0,
+                left: 0,
+                right: 0,
+                child:AspectRatio(
+                  aspectRatio: (screenSize.width) / (screenSize.height/3.5),
+                  child: VideoPlayer(_controller),
+                )
             ),
-      
+
             // Bottom container
             Positioned(
               top: screenSize.height/3.94,
@@ -75,7 +73,7 @@ class _SignInState extends State<SignIn> {
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(screenSize.width/3.3),
                   ),
-                  color: lightOlive,
+                  color: mainColor,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(screenSize.width/20),
@@ -106,7 +104,7 @@ class _SignInState extends State<SignIn> {
                             Text(
                               "Sign In",
                               style: TextStyle(
-                                color: mainColor,
+                                color: Colors.black,
                                 fontSize: screenSize.width/9.9,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -118,7 +116,7 @@ class _SignInState extends State<SignIn> {
                               fKey: fKey,
                               textColor: darkOlive,
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: screenSize.height/42),
                             SecretTextform(
                               labelText: "Password",
                               controller: context.read<AuthCubit>().pass,
@@ -126,11 +124,12 @@ class _SignInState extends State<SignIn> {
                               controller_parent: null,
                               textColor: darkOlive,
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: screenSize.height/42),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text("If you don't have an account"),
+                                Text("If you don't have an account",
+                                    style: TextStyle(color: darkOlive)),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pushNamed(context, SignUp.routeName);
@@ -138,16 +137,18 @@ class _SignInState extends State<SignIn> {
                                   child: Text(
                                     "Sign Up",
                                     style: TextStyle(
-                                      color: babyBlue,
+                                      color: const Color.fromARGB(255, 200, 119, 59),
                                       fontWeight: FontWeight.w700,
+                                      fontSize: screenSize.width/26,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
+                            SizedBox(height: screenSize.height/82),
                             state is SignInLoading
                                 ? const CircularProgressIndicator()
-                                : MaterialButton(//198,149,65  147,188,203
+                                : MaterialButton(
                               color: orange,
                               onPressed: () {
                                 if (fKey.currentState!.validate() &&
@@ -156,18 +157,18 @@ class _SignInState extends State<SignIn> {
                                 }
                               },
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(screenSize.width/15),
                               ),
                               child: Text(
                                 "Sign In",
                                 style: TextStyle(
                                   color: buttonsLabel,
-                                  fontSize: 20,
+                                  fontSize: screenSize.width/18,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            const AnotherOptions(size: 10),
+                            SizedBox(height: screenSize.height/42),
+                            AnotherOptions(size: screenSize.height/82),
                           ],
                         ),
                       );

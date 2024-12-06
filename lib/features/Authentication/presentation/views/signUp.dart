@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/features/Authentication/presentation/views/signIn.dart';
 import '../../../../Constants/constant_color.dart';
+import '../../../../Constants/constant_size.dart';
 import '../cubit/auth_cubit.dart';
-import '../widgets/Options.dart';
 import '../widgets/custom_TextFrom.dart';
 import '../widgets/secret_textForm.dart';
 
@@ -27,103 +26,121 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    screenSize.init_screenSize(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: lightOlive,
-        body: Stack( // Using Stack to position the back button
-          children: [
+        backgroundColor: orange,
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(screenSize.width/2.5),
+            ),
+            color: mainColor,
+          ),
+          child: Stack( // Using Stack to position the back button
+            children: [
 
-     SingleChildScrollView(
-        child: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if(state is SignUpSuccess){
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text("Sign Up Success, verify your email")),
-                );
-              Navigator.pushReplacementNamed(context, SignIn.routeName);
-            }else if (state is SignInError){
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(state.error)
-                )
-              );
-            }
-          },
-        builder: (context, state) {
-        return Stack(
-          children: [
-            Column(
-                  children: [
-                    const SizedBox(height: 40),
-                    const Row(
+              SingleChildScrollView(
+                child: BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if(state is SignUpSuccess){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Sign Up Success, verify your email")),
+                      );
+                      Navigator.pushReplacementNamed(context, SignIn.routeName);
+                    }else if (state is SignInError){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(state.error)
+                          )
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Stack(
                       children: [
-                        SizedBox(width: 25),
-                        Row(
+                        Column(
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            SizedBox(height: screenSize.height/10.3),
+                            Row(
                               children: [
-                                Text(
-                                "Create",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 45,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "Account",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 45,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                        ),
-                                      ]
+                                SizedBox(width: screenSize.width/7),
+                                Row(
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Create",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: screenSize.width/10.6,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Account",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: screenSize.width/10.6,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ]
                                     ),
 
-                                SizedBox(width: 7.7,),
-                                Image(image: AssetImage('assets/hotairballoon.png'),height: 190, width: 190),
+                                    SizedBox(width: screenSize.width/62,),
+                                    Image(image: AssetImage('assets/hotairballoon.png'),height: screenSize.height/4),
                                   ],
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 80),
-                            CustomTextfrom(
-                              labelText: "Name",
-                              controller: context.read<AuthCubit>().nameup,
-                              fKey: fKeyn,
-                              textColor: darkOlive,
-                            ),
-                            const SizedBox(height: 20),
-                            CustomTextfrom(
-                              labelText: "Email",
-                              controller: context.read<AuthCubit>().emailup,
-                              fKey: fKey,
-                              textColor: darkOlive,
-                            ),
-                            const SizedBox(height: 20),
-                            SecretTextform(
-                              labelText: "Password",
-                              controller: context.read<AuthCubit>().passup,
-                              fKey: fKeyP,
-                              controller_parent: null,
-                              textColor: darkOlive,
-                            ),
-                            const SizedBox(height: 20),
-                            SecretTextform(
-                              labelText: "Confirm Password",
-                              controller: context.read<AuthCubit>().cpassup,
-                              fKey: cfKeyP,
-                              controller_parent: context.read<AuthCubit>().passup,
-                              textColor: darkOlive,
+                            SizedBox(height: screenSize.height/200),
+                            Padding(
+                              padding: EdgeInsets.all(screenSize.width/20),
+                              child: Column(
+                                children: [
+                                  CustomTextfrom(
+                                    labelText: "Name",
+                                    controller: context.read<AuthCubit>().nameup,
+                                    fKey: fKeyn,
+                                    textColor: darkOlive,
+                                  ),
+                                  SizedBox(height: screenSize.height/42 ),
+                                  CustomTextfrom(
+                                    labelText: "Email",
+                                    controller: context.read<AuthCubit>().emailup,
+                                    fKey: fKey,
+                                    textColor: darkOlive,
+                                  ),
+                                  SizedBox(height: screenSize.height/42 ),
+                                  SecretTextform(
+                                    labelText: "Password",
+                                    controller: context.read<AuthCubit>().passup,
+                                    fKey: fKeyP,
+                                    controller_parent: null,
+                                    textColor: darkOlive,
+                                  ),
+                                  SizedBox(height: screenSize.height/42 ),
+                                  SecretTextform(
+                                    labelText: "Confirm Password",
+                                    controller: context.read<AuthCubit>().cpassup,
+                                    fKey: cfKeyP,
+                                    controller_parent: context.read<AuthCubit>().passup,
+                                    textColor: darkOlive,
+                                  ),
+
+                                ],
+                              ),
                             ),
 
-                            const SizedBox(height: 70),
-                             state is SignUpLoading ? const CircularProgressIndicator() : MaterialButton(
+                            SizedBox(height: screenSize.height/20),
+                            state is SignUpLoading ? const CircularProgressIndicator() : MaterialButton(
                               color: orange,
-                              minWidth: 150,
+                              minWidth: screenSize.width/2.6,
                               onPressed: () {
                                 if (fKey.currentState!.validate() &&
                                     fKeyP.currentState!.validate() &&
@@ -134,33 +151,34 @@ class _SignUpState extends State<SignUp> {
                                 }
                               },
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(screenSize.width/15),
                               ),
                               child: Text(
                                 "Sign Up",
                                 style: TextStyle(
                                   color: buttonsLabel,
-                                  fontSize: 20,
+                                  fontSize: screenSize.width/18,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                    Positioned( // Back button positioned at the top left
-                      top: 5,
-                      left: 5,
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios_new_rounded, color: darkOlive),
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Go back to the previous screen
-                        },
-                      ),
-                    ),
-                  ],
-                );
-  },
-),)
-          ],
+                        Positioned( // Back button positioned at the top left
+                          top: screenSize.height/50,
+                          left: screenSize.width/80,
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back, color: Colors.black),
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Go back to the previous screen
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),)
+            ],
+          ),
         ),
       ),
     );
