@@ -1,40 +1,50 @@
-import 'package:graduation/Core/API/Endpoints.dart';
+import 'package:wonderlustapp/Core/API/Endpoints.dart';
+import 'package:wonderlustapp/Core/models/modelsinterface.dart';
 
-class HotelsResponseModel {
-  final List<HotelsModel> hotels;
+class Hotelsresponsemodel implements Modelsresponseinterface {
+  @override
+  final List<Hotelsmodel> Hotels;
 
-  HotelsResponseModel({required this.hotels});
+  Hotelsresponsemodel({required this.Hotels});
 
-  factory HotelsResponseModel.fromJson(Map<String, dynamic> json) {
-    return HotelsResponseModel(
-      hotels: List<HotelsModel>.from(json['properties']?.map((x) => HotelsModel.fromJson(x)) ?? []),
+  // Implement the models getter to conform to Modelsresponseinterface
+  @override
+  List<Modelsinterface> get models => Hotels;
+
+  factory Hotelsresponsemodel.fromJson(Map<String, dynamic> json) {
+    return Hotelsresponsemodel(
+      Hotels: List<Hotelsmodel>.from(
+        json[ApiKeys.places]?.map((x) => Hotelsmodel.fromJson(x)) ?? [],
+      ),
     );
   }
 }
 
-class HotelsModel {
-  final String name;
-  final String originalImage;
-  final double overallRate;
-  final String link;
+// Airportsmodel implementing Modelsinterface
+class Hotelsmodel implements Modelsinterface {
+  @override
+  final String title;
+  @override
+  final double rating;
+  @override
+  final String website;
 
-  HotelsModel({
-    required this.name,
-    required this.originalImage,
-    required this.overallRate,
-    required this.link,
+  Hotelsmodel({
+    required this.title,
+    required this.rating,
+    required this.website,
   });
 
-  factory HotelsModel.fromJson(Map<String, dynamic> json) {
-    return HotelsModel(
-      name: json[ApiKeys.name] ?? "",
-      originalImage: (json[ApiKeys.images] != null && json[ApiKeys.images].isNotEmpty)
-          ? json[ApiKeys.images][0][ApiKeys.originalImage] ?? ""
-          : '',
-      overallRate: (json[ApiKeys.overallRating] != null) ? json[ApiKeys.overallRating].toDouble() : 0.0,
-      link: json[ApiKeys.link] ?? (json[ApiKeys.prices] != null && json[ApiKeys.prices].isNotEmpty
-          ? json[ApiKeys.prices][0][ApiKeys.source] ?? ""
-          : ""),
+  factory Hotelsmodel.fromJson(Map<String, dynamic> json) {
+    return Hotelsmodel(
+      title: json[ApiKeys.title] ?? "",
+      rating: (json[ApiKeys.rating] != null)
+          ? json[ApiKeys.rating].toDouble()
+          : 0.0,
+      website: json[ApiKeys.website] ??
+          (json[ApiKeys.prices] != null && json[ApiKeys.prices].isNotEmpty
+              ? json[ApiKeys.prices][0][ApiKeys.source] ?? ""
+              : ""),
     );
   }
 }

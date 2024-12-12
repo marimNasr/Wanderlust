@@ -4,6 +4,7 @@ class  userModel{
   final String name;
   final String email;
   final String password;
+  
 
   userModel({required this.name,required this.email,required this.password});
   factory userModel.fromJson(json){
@@ -12,6 +13,7 @@ class  userModel{
         email: json['email'],
         password: json['password']);
   }
+  
 
   static Future<userModel?>getUserByEmail(String email) async {
     try {

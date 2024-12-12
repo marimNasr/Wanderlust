@@ -1,27 +1,27 @@
 import 'package:wonderlustapp/Core/API/Endpoints.dart';
 import 'package:wonderlustapp/Core/models/modelsinterface.dart';
 
-class Restaurantsresponsemodel implements Modelsresponseinterface {
+class Airportsresponsemodel implements Modelsresponseinterface {
   @override
-  final List<Restaurantsmodel> restaurants;
+  final List<Airportsmodel> airports;
 
-  Restaurantsresponsemodel({required this.restaurants});
+  Airportsresponsemodel({required this.airports});
 
   // Implement the models getter to conform to Modelsresponseinterface
   @override
-  List<Modelsinterface> get models => restaurants;
+  List<Modelsinterface> get models => airports;
 
-  factory Restaurantsresponsemodel.fromJson(Map<String, dynamic> json) {
-    return Restaurantsresponsemodel(
-      restaurants: List<Restaurantsmodel>.from(
-        json[ApiKeys.places]?.map((x) => Restaurantsmodel.fromJson(x)) ?? [],
+  factory Airportsresponsemodel.fromJson(Map<String, dynamic> json) {
+    return Airportsresponsemodel(
+      airports: List<Airportsmodel>.from(
+        json[ApiKeys.places]?.map((x) => Airportsmodel.fromJson(x)) ?? [],
       ),
     );
   }
 }
 
 // Airportsmodel implementing Modelsinterface
-class Restaurantsmodel implements Modelsinterface {
+class Airportsmodel implements Modelsinterface {
   @override
   final String title;
   @override
@@ -29,14 +29,14 @@ class Restaurantsmodel implements Modelsinterface {
   @override
   final String website;
 
-  Restaurantsmodel({
+  Airportsmodel({
     required this.title,
     required this.rating,
     required this.website,
   });
 
-  factory Restaurantsmodel.fromJson(Map<String, dynamic> json) {
-    return Restaurantsmodel(
+  factory Airportsmodel.fromJson(Map<String, dynamic> json) {
+    return Airportsmodel(
       title: json[ApiKeys.title] ?? "",
       rating: (json[ApiKeys.rating] != null)
           ? json[ApiKeys.rating].toDouble()

@@ -1,18 +1,19 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/Constants/constant_color.dart';
-import 'package:graduation/features/Authentication/data/userModel.dart';
-import 'package:graduation/features/Home/presentation/widgets/Search_bar.dart';
-import 'package:graduation/features/Home/presentation/widgets/content_Grid.dart';
-import 'package:video_player/video_player.dart'; // Import video_player package
-import '../../../../Constants/constant_size.dart';
+import 'package:wonderlustapp/Core/models/modelsinterface.dart';
+import 'package:wonderlustapp/feature/authentication/presentation/views/updatescreen.dart';
+import '../../../../constant/constants.dart';
+import '../../../authentication/data/usermodel.dart';
+import '../widgets/Search_bar.dart';
 import '../widgets/categoryList.dart';
+import '../widgets/content_Grid.dart';
 
 class homePage extends StatefulWidget {
-  const homePage({super.key});
+   const homePage({super.key});
   static String routeName = "homePage";
-
+  
+  
   @override
   State<homePage> createState() => _homePageState();
 }
@@ -20,6 +21,8 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   String selectedTopic = "All";
   userModel? userData;
+
+  
   //late VideoPlayerController _controller; // Video controller
 
   Future<void> fetchUserData() async {
@@ -41,23 +44,8 @@ class _homePageState extends State<homePage> {
   void initState() {
     super.initState();
     fetchUserData();
-
-    // // Initialize the video controller
-    // _controller = VideoPlayerController.asset('assets/traveller.mp4') // Add the video URL here
-    //   ..initialize().then((_) {
-    //     if (mounted) {
-    //       setState(() {}); // Refresh UI after initialization
-    //       _controller.play();
-    //       _controller.setLooping(true);
-    //     } // Automatically play the video
-    //   });
-  }
-
-  // @override
-  // void dispose() {
-  //   _controller.dispose(); // Dispose of the controller when done
-  //   super.dispose();
-  // }
+    
+}
 
   void updateSelectedTopic(String topic) {
     setState(() {
@@ -65,24 +53,52 @@ class _homePageState extends State<homePage> {
     });
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
-    screenSize.init_screenSize(context);
+    
+    ScreenSize.init(context);
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    Future<void> initialize() async {
+  final categoryModel = await args?['categoryModel'];
+  final String channelId = args?['channelId'] ?? "";
 
+  print("Category Model: $categoryModel");
+  print("Channel ID: $channelId");
+}
     return SafeArea(
       child: Scaffold(
         backgroundColor: mainColor,
+        drawer: Drawer(
+          child: ListView(
+          padding: EdgeInsets.zero,
+          children:  [
+            ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text("Profile",style: TextStyle(fontSize: 30,color: Colors.black),),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, Updatescreen.routename);
+            },
+           ),
+            ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text("Log Out",style: TextStyle(fontSize: 30,color: Colors.black),),
+            onTap: (){},
+           )
+          ]
+        )),
         body: Column(
           children: [
-            SizedBox(height: screenSize.height / 15),
+            SizedBox(height: ScreenSize.height / 15),
             Row(
               children: [
-                SizedBox(width: screenSize.width / 12),
+                SizedBox(width: ScreenSize.width / 12),
                 userData != null
                      ? Container(
-                  width: screenSize.width / 6,
-                  height: screenSize.width / 6,
-                  decoration: BoxDecoration(
+                  width: ScreenSize.width / 6,
+                  height: ScreenSize.width / 6,
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: Transform.scale(
@@ -94,20 +110,20 @@ class _homePageState extends State<homePage> {
                       ),
                     ),
                   ),
-                ) : CircularProgressIndicator(),
-                SizedBox(width: screenSize.width / 12), // Add spacing
+                ) : const CircularProgressIndicator(),
+                SizedBox(width: ScreenSize.width / 12), // Add spacing
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Hi, ${userData?.name}!",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Where do you want to go?",
                       style: TextStyle(
                         fontSize: 14,
@@ -118,16 +134,16 @@ class _homePageState extends State<homePage> {
                 ),
               ],
             ),
-            SizedBox(height: screenSize.height / 25),
-            searchBar(),
+            SizedBox(height: ScreenSize.height / 25),
+            const searchBar(),
 
-            SizedBox(height: 20), // Add spacing between sections
+            const SizedBox(height: 20), // Add spacing between sections
             categoryList(
               selectedTopic: selectedTopic,
               onSelected: updateSelectedTopic,
             ),
             content_grid(
-              selectedTopic: selectedTopic,
+              selectedTopic: selectedTopic, datalist: [] ,
             ),
 
           ],

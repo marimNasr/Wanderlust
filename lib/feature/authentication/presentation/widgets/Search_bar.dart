@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/Constants/constant_size.dart';
 
-import '../../../../Constants/constant_color.dart';
+import '../../../../constant/constants.dart';
 
 class searchBar extends StatefulWidget {
   const searchBar({super.key});
@@ -15,11 +14,11 @@ class _searchBarState extends State<searchBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenSize.height/40),
+      padding: EdgeInsets.symmetric(horizontal: ScreenSize.height/40),
       child: TextFormField(
         decoration: InputDecoration(
           prefixIcon: Padding(
-            padding: EdgeInsets.only(left: screenSize.width / 30),
+            padding: EdgeInsets.only(left: ScreenSize.width / 30),
             child:  IconButton(
               onPressed: (){},
               icon:
@@ -33,7 +32,7 @@ class _searchBarState extends State<searchBar> {
           hintText: "ex: London",
           hintStyle: const TextStyle(color: Colors.grey),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(screenSize.width/10),
+            borderRadius: BorderRadius.circular(ScreenSize.width/10),
             borderSide: BorderSide.none
           )
         ),

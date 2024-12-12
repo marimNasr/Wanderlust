@@ -1,31 +1,35 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/Authentication/presentation/cubit/auth_cubit.dart';
-import 'features/Authentication/presentation/views/signIn.dart';
-import 'features/Authentication/presentation/views/signUp.dart';
-import 'features/Home/home_cubit.dart';
-import 'features/Home/presentation/views/home.dart';
+import 'package:wonderlustapp/feature/authentication/presentation/views/updatescreen.dart';
+import 'feature/Home/presentation/views/home.dart';
+import 'feature/authentication/auth_cubit.dart';
+import 'feature/authentication/presentation/views/signIn.dart';
+import 'feature/authentication/presentation/views/signUp.dart';
+import 'feature/authentication/presentation/views/splachscreen.dart';
+import 'feature/authentication/presentation/views/startscreen.dart';
+import 'feature/home/home_cubit.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() async {
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const Wonderlust());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class Wonderlust extends StatefulWidget {
+  const Wonderlust ({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<Wonderlust> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<Wonderlust> {
   @override
   void initState() {
     FirebaseAuth.instance
@@ -50,13 +54,15 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
+          Splachscreen.routename: (context)=> const Splachscreen(),
+          Startscreen.routename: (context) => const Startscreen(),
           SignIn.routeName: (context) => const SignIn(),
           SignUp.routeName: (context) => const SignUp(),
           homePage.routeName: (context) => const homePage(),
+          Updatescreen.routename : (context) => const Updatescreen(),
         },
         initialRoute: SignIn.routeName,
       ),
     );
   }
 }
-

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/Constants/constant_color.dart';
-import 'package:graduation/Constants/constant_size.dart';
+import '../../../../constant/constants.dart';
 import '../../data/categories.dart';
 
 class categoryList extends StatefulWidget {
@@ -16,7 +15,7 @@ class _categoryListState extends State<categoryList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: screenSize.height / 11,
+      height: ScreenSize.height / 11,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -24,7 +23,7 @@ class _categoryListState extends State<categoryList> {
           final bool isSelected = widget.selectedTopic == categories[index];
 
           return Padding(
-            padding: EdgeInsets.only(top: screenSize.height / 60, bottom: screenSize.height / 60),
+            padding: EdgeInsets.only(top: ScreenSize.height / 60, bottom: ScreenSize.height / 60),
             child: GestureDetector(
               onTap: () {
                 setState(() {
@@ -32,18 +31,18 @@ class _categoryListState extends State<categoryList> {
                 });
               },
               child: AnimatedContainer(
-                margin: EdgeInsets.symmetric(horizontal: screenSize.width / 45),
+                margin: EdgeInsets.symmetric(horizontal: ScreenSize.width / 45),
                 duration: const Duration(milliseconds: 200), // Smooth transition
                 curve: Curves.easeInOut,
-                padding: EdgeInsets.symmetric(horizontal: screenSize.width / 20),
+                padding: EdgeInsets.symmetric(horizontal: ScreenSize.width / 20),
                 decoration: BoxDecoration(
                   color: isSelected ? selectedCategory : orange,
-                  borderRadius: BorderRadius.circular(screenSize.width),
+                  borderRadius: BorderRadius.circular(ScreenSize.width),
                   boxShadow: isSelected
                       ? [
                     BoxShadow(
                       color: Colors.black26,
-                      blurRadius: screenSize.width/60,
+                      blurRadius: ScreenSize.width/60,
                       offset: const Offset(2, 2),
                     )
                   ]

@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
-
-import '../../data/userModel.dart';
-
+import 'data/usermodel.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -26,9 +24,9 @@ class AuthCubit extends Cubit<AuthState> {
       emit(SignUpLoading());
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailup.text, password: passup.text);
       userModel User = userModel(
-        name: nameup.text,
-        email: emailup.text,
-        password: passup.text
+          name: nameup.text,
+          email: emailup.text,
+          password: passup.text
       );
       addUser(User);
       emit(SignUpSuccess());
@@ -79,10 +77,10 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   addUser(userModel UserModel) {
-       user.add({
-        "name":UserModel.name,
-        "email":UserModel.email,
-        "password":UserModel.password
-      }).then((value) => print(value));
+    user.add({
+      "name":UserModel.name,
+      "email":UserModel.email,
+      "password":UserModel.password
+    }).then((value) => print(value));
   }
 }
