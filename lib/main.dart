@@ -1,35 +1,35 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wonderlustapp/feature/authentication/presentation/views/updatescreen.dart';
-import 'feature/Home/presentation/views/home.dart';
-import 'feature/authentication/auth_cubit.dart';
-import 'feature/authentication/presentation/views/signIn.dart';
-import 'feature/authentication/presentation/views/signUp.dart';
-import 'feature/authentication/presentation/views/splachscreen.dart';
-import 'feature/authentication/presentation/views/startscreen.dart';
-import 'feature/home/home_cubit.dart';
+import 'package:graduation/features/profile/fav_cubit.dart';
+import 'features/Home/presentation/views/home.dart';
+import 'features/authentication/auth_cubit.dart';
+import 'features/authentication/presentation/views/signIn.dart';
+import 'features/authentication/presentation/views/signUp.dart';
+import 'features/authentication/presentation/views/startscreen.dart';
+import 'features/home/presentation/cubit/home_cubit.dart';
+import 'features/profile/views/updatescreen.dart';
+import 'features/splashScreen/views/splachscreen.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Wonderlust());
+  runApp(const MyApp());
 }
 
-class Wonderlust extends StatefulWidget {
-  const Wonderlust ({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp ({super.key});
 
   @override
-  State<Wonderlust> createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<Wonderlust> {
+class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     FirebaseAuth.instance
@@ -49,7 +49,8 @@ class _MyAppState extends State<Wonderlust> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
-        BlocProvider(create: (context) => HomeCubit()), // Second cubit
+        BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (context) => FavCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
